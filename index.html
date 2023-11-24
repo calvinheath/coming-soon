@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coming Soon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .fade-in { animation: fadeIn 1s ease-in-out; }
+        .fade-in-up { animation: fadeInUp 1s ease-in-out; }
+        .float { animation: float 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="text-white" style="background: #3A0101; background: radial-gradient(at center bottom, #0c0202, #19171E)">
+
+    <div class="container mx-auto px-4 sm:px-8 md:px-12 lg:px-20 xl:px-32">
+        
+        <!-- Header Section -->
+        <header class="h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('hero-image.png');">
+            <!-- Logo Image -->
+            <img src="path_to_your_logo.png" alt="Logo" class="mb-0 fade-in max-h-64 sm:max-h-80 md:max-h-96 lg:max-h-120 xl:max-h-144" style="animation-delay: 0.3s;">
+
+            <div class="text-center fade-in-up" style="animation-delay: 0.6s;">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-8xl font-bold tracking-tighter">We're almost there.</h1>
+                <p class="mt-4 sm:mt-6 md:mt-8 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold tracking-tighter" style="animation-delay: 0.9s;">Want to be a beta tester? Join <a class="font-extrabold italic" href="https://discord.com/channels/1133851782112620666/1177417303953002689">Discord</a> for more info.</p>
+         
+                <!-- Countdown Timer -->
+                <div id="countdown" class="font-bold countdown">
+
+                    <div>
+                    <div id="days" class="number"></div>
+                    <div class="text-xl self-center font-semibold">Days</div>
+                    </div> 
+                    
+                    <div>
+                    <div id="hours" class="number"></div>
+                    <div class="text-xl self-center font-semibold">Hours</div>
+                    </div>
+
+                    <div>
+                    <div id="minutes" class="number"></div>
+                    <div class="text-xl self-center font-semibold">Mins</div> 
+                    </div>
+
+                    <div>
+                    <div id="seconds" class="number"></div>   
+                    <div class="text-xl self-center font-semibold">Seconds</div>
+                    </div>
+
+                </div>
+
+                <!-- Social Media Buttons -->
+                <div class="mt-6 sm:mt-8">
+                    <a href="https://t.me/EASports24token" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full shadow-lg mx-2 transition duration-300 ease-in-out float" style="animation-delay: 1.2s;"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://twitter.com/Eafc24Token" class="bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 rounded-full shadow-lg mx-2 transition duration-300 ease-in-out float" style="animation-delay: 1.2s;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://discord.gg/Xq4AqrR9sD" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-full shadow-lg mx-2 transition duration-300 ease-in-out float" style="animation-delay: 1.2s;"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
+    <script>
+function createSlots(id, max) {
+    const container = document.getElementById(id);
+    for (let i = 0; i <= max; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'slot';
+        slot.textContent = i;
+        // Position slots so that the last one (max value) is visible initially
+        slot.style.top = `${(i - max) * 100}%`;
+        container.appendChild(slot);
+    }
+    container.dataset.current = max; // Start with the max value
+}
+
+function updateSlot(slotContainer, value) {
+    const current = parseInt(slotContainer.dataset.current);
+    const slots = slotContainer.getElementsByClassName('slot');
+    const max = slots.length - 1;
+    const newValue = value % (max + 1);
+
+    // Move the current slot out of view
+    slots[current].style.top = `${(max + 1) * 100}%`;
+
+    // Position the new slot
+    slots[newValue].style.top = '0%';
+
+    slotContainer.dataset.current = newValue;
+}
+
+function countdown() {
+    const countToDate = new Date(Date.UTC(2023, 11, 31, 18, 0, 0)); // Year, Month (0-11), Day, Hours, Minutes, Seconds
+    const now = new Date();
+    const difference = countToDate - now;
+
+    if (difference > 0) {
+        // Time calculations
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24)) % 31;
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        // Update HTML
+        updateSlot(document.getElementById('days'), days);
+        updateSlot(document.getElementById('hours'), hours);
+        updateSlot(document.getElementById('minutes'), minutes);
+        updateSlot(document.getElementById('seconds'), seconds);
+    } else {
+        clearInterval(interval);
+        document.getElementById('countdown').innerHTML = "Launched!";
+    }
+}
+
+// Initialize slots
+createSlots('days', 30);
+createSlots('hours', 23);
+createSlots('minutes', 59);
+createSlots('seconds', 59);
+
+// Update countdown every second
+const interval = setInterval(countdown, 1000);
+
+
+
+    </script>
+    
+    
+    
+</body>
+</html>
