@@ -38,11 +38,33 @@
             <div class="text-center fade-in-up" style="animation-delay: 0.6s;">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-8xl font-bold tracking-tighter">We're almost there.</h1>
                 <p class="mt-4 sm:mt-6 md:mt-8 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold tracking-tighter" style="animation-delay: 0.9s;">Want to be a beta tester? Join <a class="font-extrabold italic" href="https://discord.com/channels/1133851782112620666/1177417303953002689">Discord</a> for more info.</p>
-                <div id="postCountdownMessage" class="mt-4 text-base font-medium">
+                <div id="postCountdownMessage" class="hidden">
                     <p>We'll be back shortly, we are implementing some security features. Check <a href="https://t.me/EASports24token" class="underline">Telegram</a> for updates.</p>
                 </div>
                 <!-- Countdown Timer -->
+                <div id="countdown" class="font-bold countdown">
 
+                    <div>
+                    <div id="days" class="number"></div>
+                    <div class="text-xl self-center font-semibold">Days</div>
+                    </div> 
+                    
+                    <div>
+                    <div id="hours" class="number"></div>
+                    <div class="text-xl self-center font-semibold">Hours</div>
+                    </div>
+
+                    <div>
+                    <div id="minutes" class="number"></div>
+                    <div class="text-xl self-center font-semibold">Mins</div> 
+                    </div>
+
+                    <div>
+                    <div id="seconds" class="number"></div>   
+                    <div class="text-xl self-center font-semibold">Seconds</div>
+                    </div>
+
+                </div>
 
                 <!-- Social Media Buttons -->
                 <div class="mt-6 sm:mt-8">
@@ -85,7 +107,7 @@ function updateSlot(slotContainer, value) {
 }
 
 function countdown() {
-    const countToDate = new Date(Date.UTC(2023, 12, 1, 17, 55, 0)); // Year, Month (0-11), Day, Hours, Minutes, Seconds
+    const countToDate = new Date(Date.UTC(2023, 12, 5, 0, 0, 0)); // Year, Month (0-11), Day, Hours, Minutes, Seconds
     const now = new Date();
     const difference = countToDate - now;
     const countdownElement = document.getElementById('countdown');
@@ -104,10 +126,9 @@ function countdown() {
         updateSlot(document.getElementById('minutes'), minutes);
         updateSlot(document.getElementById('seconds'), seconds);
     } else {
-            clearInterval(interval);
-            countdownElement.classList.add('hidden');
-            messageElement.classList.remove('hidden');
-        }
+        clearInterval(interval);
+        document.getElementById('countdown').innerHTML = "<div class='post-countdown-message'>We'll be back shortly, we are implementing some security features. Check <a href='https://t.me/EASports24token' class='underline'>Telegram</a> for updates.</div>";
+    }
 }
 
 // Initialize slots
